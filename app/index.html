@@ -3,78 +3,83 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leonida Ledger — GTA VI PS5 Trophy Guide &amp; Tracker</title>
+<title>Leonida Trophy Atlas — GTA VI PS5 Trophy Guide &amp; Tracker</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="sunset-bar" aria-hidden="true"></div>
-
-<header class="masthead">
-  <div class="brand">
-    <h1>Leonida <span>Ledger</span></h1>
-    <p class="tagline">Grand Theft Auto VI · PlayStation 5 trophy guide &amp; tracker — all 55 trophies, every guide in our own words with its sources cited.</p>
-  </div>
-  <div class="progress-box" aria-label="Overall progress">
-    <div class="progress-top">
-      <span id="progress-pct" class="progress-pct">0%</span>
-      <span id="progress-count" class="progress-count">0 of 55 earned</span>
+<header class="top">
+  <div class="top-inner">
+    <div class="identity">
+      <p class="eyebrow">Grand Theft Auto VI · PlayStation 5</p>
+      <h1>Leonida Trophy Atlas</h1>
+      <p class="lede">All 55 trophies, each with its official name, description and grade, a guide in our own words with its sources cited, and a checklist that saves in your browser. No network needed: this page runs entirely from its own files.</p>
     </div>
-    <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
-    <div id="grade-counts" class="grade-counts"></div>
-    <div class="io-row">
-      <button id="export-btn" type="button">Export progress</button>
-      <button id="import-btn" type="button">Import progress</button>
-      <input id="import-file" type="file" accept="application/json,.json" hidden>
+    <div class="meter" aria-label="Overall progress">
+      <div class="meter-head"><span id="meter-pct">0%</span><span id="meter-count">0 of 55 earned</span></div>
+      <div class="meter-bar"><div id="meter-fill"></div></div>
+      <p id="meter-grades" class="meter-grades"></p>
+      <div class="meter-actions">
+        <button id="btn-export" type="button">Export progress</button>
+        <button id="btn-import" type="button">Import progress</button>
+        <input id="file-import" type="file" accept="application/json,.json" hidden>
+      </div>
     </div>
   </div>
 </header>
 
-<section class="toolbar" aria-label="Filters">
-  <input id="search" type="search" placeholder="Search trophies by name or description…" autocomplete="off">
-  <div class="chips" id="kind-chips" role="group" aria-label="Filter by kind">
-    <button type="button" data-kind="all" class="chip active">All</button>
-    <button type="button" data-kind="story" class="chip">Story</button>
-    <button type="button" data-kind="missable" class="chip">Missable</button>
-    <button type="button" data-kind="collectibles" class="chip">Collectibles</button>
-    <button type="button" data-kind="activities" class="chip">Activities</button>
-    <button type="button" data-kind="online" class="chip">Online</button>
+<nav class="controls" aria-label="Search and filters">
+  <input id="q" type="search" placeholder="Search by trophy name, description or guide…" autocomplete="off">
+  <div class="kind-row" id="kind-row" role="group" aria-label="Filter by kind">
+    <button type="button" data-kind="all" class="kind-btn on">All kinds</button>
+    <button type="button" data-kind="story" class="kind-btn">Story</button>
+    <button type="button" data-kind="missable" class="kind-btn">Missable</button>
+    <button type="button" data-kind="collectibles" class="kind-btn">Collectibles</button>
+    <button type="button" data-kind="activities" class="kind-btn">Activities</button>
+    <button type="button" data-kind="online" class="kind-btn">Online</button>
   </div>
-  <label class="select-wrap">Grade
-    <select id="grade-filter">
-      <option value="all">All grades</option>
-      <option value="platinum">Platinum</option>
-      <option value="gold">Gold</option>
-      <option value="silver">Silver</option>
-      <option value="bronze">Bronze</option>
-    </select>
-  </label>
-  <label class="toggle"><input id="only-unearned" type="checkbox"> Only unearned</label>
-  <label class="toggle shield"><input id="spoiler-shield" type="checkbox"> Spoiler shield</label>
-</section>
+  <div class="select-row">
+    <label>Grade
+      <select id="grade">
+        <option value="all">All grades</option>
+        <option value="platinum">Platinum</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="bronze">Bronze</option>
+      </select>
+    </label>
+    <label>Status
+      <select id="status">
+        <option value="all">All trophies</option>
+        <option value="earned">Earned</option>
+        <option value="unearned">Not yet earned</option>
+      </select>
+    </label>
+    <label class="check"><input id="shield" type="checkbox"> Spoiler shield</label>
+  </div>
+</nav>
 
-<p id="online-note" class="online-note" hidden>The official PlayStation 5 list contains <strong>no online trophies</strong>: all 55 trophies are earned in single-player, so this guide lists none under Online rather than inventing any.</p>
-<p id="result-count" class="result-count" aria-live="polite"></p>
+<p id="online-note" class="note" hidden>The official PlayStation 5 list holds <strong>no online trophies</strong>: all 55 are earned in single-player, so this atlas lists none under Online instead of inventing any.</p>
+<p id="match-count" class="match-count" aria-live="polite"></p>
 
-<main class="layout">
-  <section class="list-pane" aria-label="Trophy checklist">
-    <ul id="trophy-list" class="trophy-list"></ul>
-    <p id="empty-state" class="empty-state" hidden>No trophies match the current filters.</p>
+<main class="board">
+  <section class="catalog" aria-label="Trophy checklist">
+    <ol id="catalog" class="catalog-list"></ol>
+    <p id="no-match" class="no-match" hidden>No trophies match the current search and filters.</p>
   </section>
-
-  <aside id="detail" class="detail-pane" aria-label="Trophy guide detail">
-    <p class="detail-placeholder">Select a trophy to read its guide, steps and sources.</p>
+  <aside id="panel" class="panel" aria-label="Selected trophy guide">
+    <p class="panel-empty">Pick a trophy from the list to read its guide, steps and sources.</p>
   </aside>
 </main>
 
-<section class="roadmap" aria-label="Roadmap to the platinum">
+<section class="route" aria-label="Roadmap to the platinum">
   <h2>Roadmap to the Platinum</h2>
-  <p class="roadmap-intro">Six stages, in the order a single playthrough should take them. The story cannot be replayed, so the missable warnings live in the early stages: bank a manual save at the start of every chapter, meditate at the Chapter 1 spot before the chapter ends, and bowl when the story takes you to the alley in Chapter 2.</p>
-  <div id="roadmap-stages" class="roadmap-stages"></div>
+  <p class="route-lede">Six stages, in the order one playthrough should take them. The story cannot be replayed, so the early stages carry the warnings: bank a manual save at the start of every chapter, meditate at the Chapter 1 spot before that chapter ends, and bowl when the story takes you to the alley in Chapter 2.</p>
+  <ol id="stages" class="stages"></ol>
 </section>
 
-<footer class="colophon">
-  <p><strong>Sources.</strong> Trophy names, descriptions and grades are the official PlayStation ones. Every guide is written for this ledger in its own words and cites its sources beside it: the official PlayStation trophy descriptions, the Exophase and PSNProfiles GTA VI trophy lists, and the GTA Wiki for places such as VCIA and Ocean Beach. Hidden flags follow the published list: 28 of the 55 trophies are hidden on PlayStation until earned.</p>
-  <p>Leonida Ledger is an unofficial fan guide. It runs fully offline from its own files and saves your checklist only in this browser.</p>
+<footer class="foot">
+  <p><strong>Sources.</strong> Trophy names, descriptions and grades are the official PlayStation ones. Every guide is written for this atlas in its own words and cites its sources beside it: the official PlayStation trophy descriptions, the Exophase and PSNProfiles GTA VI trophy lists, and the GTA Wiki for places such as VCIA and Ocean Beach. Hidden flags follow the published list: 28 of the 55 trophies are hidden on PlayStation until earned. Guides marked “trigger unconfirmed” say so plainly where no tracker confirms the exact trigger.</p>
+  <p>Leonida Trophy Atlas is an unofficial fan guide. It works fully offline from its own files and saves your checklist only in this browser.</p>
 </footer>
 
 <script src="app.js"></script>
