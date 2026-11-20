@@ -3,76 +3,86 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leonida Trophy Atlas — GTA VI Trophy Guide and Tracker</title>
+<title>Leonida Trophy Atlas — GTA VI Trophy Guide &amp; Tracker</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="topbar">
-  <div class="brand">
-    <div class="brand-mark">LA</div>
-    <div>
-      <h1>Leonida Trophy Atlas</h1>
-      <p class="tagline">The complete Grand Theft Auto VI trophy guide and tracker for PlayStation 5: all 55 trophies, own-word guides with sources, one honest missable flag, and a six stage road to the platinum.</p>
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">LA</div>
+      <div>
+        <h1>Leonida Trophy Atlas</h1>
+        <p class="tagline">The complete Grand Theft Auto VI trophy guide and tracker: all 55 PlayStation 5 trophies, original cited guides, a platinum roadmap and a checklist that saves in your browser.</p>
+      </div>
     </div>
-  </div>
-  <div class="progress-box">
-    <div class="progress-line"><span id="progress-count">0 / 55</span><span id="progress-pct">0%</span></div>
-    <div class="progress-track"><div id="progress-fill"></div></div>
-    <div class="grade-counts" id="grade-counts"></div>
+    <div class="progress-panel" aria-label="Overall progress">
+      <div class="progress-numbers"><span id="earned-count">0</span> of 55 earned</div>
+      <div class="progress-bar"><div id="progress-fill"></div></div>
+      <div class="grade-tally" id="grade-tally"></div>
+    </div>
   </div>
 </header>
 
-<section class="toolbar" aria-label="Filters and tools">
-  <input id="search" type="search" placeholder="Search trophies by name or description..." autocomplete="off">
-  <div class="chips" id="kind-chips" role="group" aria-label="Filter by kind"></div>
-  <label>Grade
-    <select id="grade-filter">
-      <option value="all">All grades</option>
-      <option value="platinum">Platinum</option>
-      <option value="gold">Gold</option>
-      <option value="silver">Silver</option>
-      <option value="bronze">Bronze</option>
-    </select>
-  </label>
-  <label>Status
-    <select id="status-filter">
-      <option value="all">All trophies</option>
-      <option value="earned">Earned</option>
-      <option value="missing">Not yet earned</option>
-      <option value="missable">Missable only</option>
-      <option value="hidden">Hidden only</option>
-    </select>
-  </label>
-  <button id="spoiler-toggle" type="button" aria-pressed="true">Spoiler shield: ON</button>
-  <button id="roadmap-toggle" type="button">Roadmap view</button>
-  <button id="export-btn" type="button">Export progress</button>
-  <label class="import-label">Import progress<input id="import-file" type="file" accept="application/json"></label>
-</section>
+<nav class="toolbar" aria-label="Tracker controls">
+  <div class="toolbar-row">
+    <label class="search-box">
+      <span class="sr-only">Search trophies</span>
+      <input id="search" type="search" placeholder="Search trophies, guides, missions…" autocomplete="off">
+    </label>
+    <label class="toggle">
+      <input id="shield-toggle" type="checkbox" checked>
+      <span>Spoiler shield</span>
+    </label>
+    <div class="io-buttons">
+      <button id="export-btn" type="button">Export progress</button>
+      <label class="import-label">Import progress<input id="import-file" type="file" accept="application/json,.json" hidden></label>
+      <button id="reset-btn" type="button">Reset</button>
+    </div>
+  </div>
+  <div class="toolbar-row filters" role="group" aria-label="Filters">
+    <div class="chip-set" id="kind-chips" aria-label="Filter by kind"></div>
+    <label>Grade
+      <select id="grade-filter">
+        <option value="all">All grades</option>
+        <option value="platinum">Platinum</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="bronze">Bronze</option>
+      </select>
+    </label>
+    <label>Status
+      <select id="status-filter">
+        <option value="all">All</option>
+        <option value="earned">Earned</option>
+        <option value="open">Not earned</option>
+      </select>
+    </label>
+    <span class="result-count" id="result-count"></span>
+  </div>
+</nav>
 
-<p class="shield-note" id="shield-note">Spoiler shield is on: hidden trophies show as sealed entries, with names, descriptions and guides covered, until you earn them or lift the shield.</p>
-
-<main class="layout">
-  <section class="list-pane" aria-label="Trophy checklist">
-    <div class="rows" id="rows"></div>
-    <p class="empty" id="empty-msg" hidden>No trophies match the current search and filters.</p>
+<main>
+  <section id="roadmap" class="roadmap" aria-label="Roadmap to the platinum">
+    <h2>Roadmap to the platinum</h2>
+    <p class="section-note">Six stages, in the order this atlas recommends. Story first, the counted sweep after, and the one missable trophy swept region by region along the way.</p>
+    <div id="roadmap-stages"></div>
   </section>
-  <aside class="detail-pane" id="detail" aria-label="Trophy detail"></aside>
+
+  <section class="tracker" aria-label="Trophy checklist">
+    <h2>Trophy checklist</h2>
+    <p class="section-note">Tick a trophy off and it is saved in this browser. Click a row to open its guide, steps and sources. Hidden trophies stay sealed behind the spoiler shield until you earn or reveal them.</p>
+    <div id="trophy-list"></div>
+    <p id="empty-state" class="empty-state" hidden>No trophies match the current search and filters.</p>
+  </section>
+
+  <aside id="detail" class="detail" aria-label="Trophy guide detail" hidden></aside>
 </main>
 
-<section class="roadmap" id="roadmap" hidden>
-  <h2>Road to the Platinum: six stages</h2>
-  <p class="roadmap-intro">The order below is built from the official descriptions: story first so nothing closes off, the one missable sweep before the finale, then the counted grinds, the money game, and the 100 percent finish.</p>
-  <div class="stages" id="stages"></div>
-  <div class="missable-box">
-    <h3>Missable watch</h3>
-    <p>Exactly one trophy in the official list is flagged missable in this atlas: <strong>Positive Mental Attitude</strong> (meditate at all 18 spots). Later story events close off the areas holding two spots, so finish the meditation sweep in Stage 3, before the final mission, or keep a save from before the finale.</p>
-  </div>
-</section>
-
-<footer class="foot">
-  <p>Guides are written for this atlas in its own words and cite their sources per trophy. Official trophy names and descriptions are shown as PlayStation publishes them. Progress is stored only in your browser (localStorage) and can be exported and imported as JSON. Works fully offline.</p>
+<footer class="colophon">
+  <p>Leonida Trophy Atlas is an unofficial fan guide. Trophy names and descriptions are as PlayStation publishes them; every guide is written for this atlas and cites its sources beside it. Works fully offline: progress lives only in your browser's local storage.</p>
 </footer>
 
-<script src="app.js"></script>
+<script type="module" src="app.js"></script>
 </body>
 </html>
