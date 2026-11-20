@@ -1,85 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leonida Trophy Atlas — GTA VI PS5 Trophy Guide &amp; Tracker</title>
+<title>Leonida Trophy Atlas — GTA VI Trophy Guide and Tracker</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="top">
-  <div class="top-inner">
-    <div class="identity">
-      <p class="eyebrow">Grand Theft Auto VI · PlayStation 5</p>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">LA</div>
+    <div>
       <h1>Leonida Trophy Atlas</h1>
-      <p class="lede">All 55 trophies, each with its official name, description and grade, a guide in our own words with its sources cited, and a checklist that saves in your browser. No network needed: this page runs entirely from its own files.</p>
+      <p class="tagline">The complete Grand Theft Auto VI trophy guide and tracker for PlayStation 5: all 55 trophies, own-word guides with sources, one honest missable flag, and a six stage road to the platinum.</p>
     </div>
-    <div class="meter" aria-label="Overall progress">
-      <div class="meter-head"><span id="meter-pct">0%</span><span id="meter-count">0 of 55 earned</span></div>
-      <div class="meter-bar"><div id="meter-fill"></div></div>
-      <p id="meter-grades" class="meter-grades"></p>
-      <div class="meter-actions">
-        <button id="btn-export" type="button">Export progress</button>
-        <button id="btn-import" type="button">Import progress</button>
-        <input id="file-import" type="file" accept="application/json,.json" hidden>
-      </div>
-    </div>
+  </div>
+  <div class="progress-box">
+    <div class="progress-line"><span id="progress-count">0 / 55</span><span id="progress-pct">0%</span></div>
+    <div class="progress-track"><div id="progress-fill"></div></div>
+    <div class="grade-counts" id="grade-counts"></div>
   </div>
 </header>
 
-<nav class="controls" aria-label="Search and filters">
-  <input id="q" type="search" placeholder="Search by trophy name, description or guide…" autocomplete="off">
-  <div class="kind-row" id="kind-row" role="group" aria-label="Filter by kind">
-    <button type="button" data-kind="all" class="kind-btn on">All kinds</button>
-    <button type="button" data-kind="story" class="kind-btn">Story</button>
-    <button type="button" data-kind="missable" class="kind-btn">Missable</button>
-    <button type="button" data-kind="collectibles" class="kind-btn">Collectibles</button>
-    <button type="button" data-kind="activities" class="kind-btn">Activities</button>
-    <button type="button" data-kind="online" class="kind-btn">Online</button>
-  </div>
-  <div class="select-row">
-    <label>Grade
-      <select id="grade">
-        <option value="all">All grades</option>
-        <option value="platinum">Platinum</option>
-        <option value="gold">Gold</option>
-        <option value="silver">Silver</option>
-        <option value="bronze">Bronze</option>
-      </select>
-    </label>
-    <label>Status
-      <select id="status">
-        <option value="all">All trophies</option>
-        <option value="earned">Earned</option>
-        <option value="unearned">Not yet earned</option>
-      </select>
-    </label>
-    <label class="check"><input id="shield" type="checkbox"> Spoiler shield</label>
-  </div>
-</nav>
+<section class="toolbar" aria-label="Filters and tools">
+  <input id="search" type="search" placeholder="Search trophies by name or description..." autocomplete="off">
+  <div class="chips" id="kind-chips" role="group" aria-label="Filter by kind"></div>
+  <label>Grade
+    <select id="grade-filter">
+      <option value="all">All grades</option>
+      <option value="platinum">Platinum</option>
+      <option value="gold">Gold</option>
+      <option value="silver">Silver</option>
+      <option value="bronze">Bronze</option>
+    </select>
+  </label>
+  <label>Status
+    <select id="status-filter">
+      <option value="all">All trophies</option>
+      <option value="earned">Earned</option>
+      <option value="missing">Not yet earned</option>
+      <option value="missable">Missable only</option>
+      <option value="hidden">Hidden only</option>
+    </select>
+  </label>
+  <button id="spoiler-toggle" type="button" aria-pressed="true">Spoiler shield: ON</button>
+  <button id="roadmap-toggle" type="button">Roadmap view</button>
+  <button id="export-btn" type="button">Export progress</button>
+  <label class="import-label">Import progress<input id="import-file" type="file" accept="application/json"></label>
+</section>
 
-<p id="online-note" class="note" hidden>The official PlayStation 5 list holds <strong>no online trophies</strong>: all 55 are earned in single-player, so this atlas lists none under Online instead of inventing any.</p>
-<p id="match-count" class="match-count" aria-live="polite"></p>
+<p class="shield-note" id="shield-note">Spoiler shield is on: hidden trophies show as sealed entries, with names, descriptions and guides covered, until you earn them or lift the shield.</p>
 
-<main class="board">
-  <section class="catalog" aria-label="Trophy checklist">
-    <ol id="catalog" class="catalog-list"></ol>
-    <p id="no-match" class="no-match" hidden>No trophies match the current search and filters.</p>
+<main class="layout">
+  <section class="list-pane" aria-label="Trophy checklist">
+    <div class="rows" id="rows"></div>
+    <p class="empty" id="empty-msg" hidden>No trophies match the current search and filters.</p>
   </section>
-  <aside id="panel" class="panel" aria-label="Selected trophy guide">
-    <p class="panel-empty">Pick a trophy from the list to read its guide, steps and sources.</p>
-  </aside>
+  <aside class="detail-pane" id="detail" aria-label="Trophy detail"></aside>
 </main>
 
-<section class="route" aria-label="Roadmap to the platinum">
-  <h2>Roadmap to the Platinum</h2>
-  <p class="route-lede">Six stages, in the order one playthrough should take them. The story cannot be replayed, so the early stages carry the warnings: bank a manual save at the start of every chapter, meditate at the Chapter 1 spot before that chapter ends, and bowl when the story takes you to the alley in Chapter 2.</p>
-  <ol id="stages" class="stages"></ol>
+<section class="roadmap" id="roadmap" hidden>
+  <h2>Road to the Platinum: six stages</h2>
+  <p class="roadmap-intro">The order below is built from the official descriptions: story first so nothing closes off, the one missable sweep before the finale, then the counted grinds, the money game, and the 100 percent finish.</p>
+  <div class="stages" id="stages"></div>
+  <div class="missable-box">
+    <h3>Missable watch</h3>
+    <p>Exactly one trophy in the official list is flagged missable in this atlas: <strong>Positive Mental Attitude</strong> (meditate at all 18 spots). Later story events close off the areas holding two spots, so finish the meditation sweep in Stage 3, before the final mission, or keep a save from before the finale.</p>
+  </div>
 </section>
 
 <footer class="foot">
-  <p><strong>Sources.</strong> Trophy names, descriptions and grades are the official PlayStation ones. Every guide is written for this atlas in its own words and cites its sources beside it: the official PlayStation trophy descriptions, the Exophase and PSNProfiles GTA VI trophy lists, and the GTA Wiki for places such as VCIA and Ocean Beach. Hidden flags follow the published list: 28 of the 55 trophies are hidden on PlayStation until earned. Guides marked “trigger unconfirmed” say so plainly where no tracker confirms the exact trigger.</p>
-  <p>Leonida Trophy Atlas is an unofficial fan guide. It works fully offline from its own files and saves your checklist only in this browser.</p>
+  <p>Guides are written for this atlas in its own words and cite their sources per trophy. Official trophy names and descriptions are shown as PlayStation publishes them. Progress is stored only in your browser (localStorage) and can be exported and imported as JSON. Works fully offline.</p>
 </footer>
 
 <script src="app.js"></script>

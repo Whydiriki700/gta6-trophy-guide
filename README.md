@@ -1,50 +1,39 @@
 # Leonida Trophy Atlas
 
-[![make.fun · gta6-trophy-guide-01](https://make.fun/badge/gta6-trophy-guide-01.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
+[![bounty](https://make.fun/badge/gta6-trophy-guide-01.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
 [![rank](https://make.fun/badge/gta6-trophy-guide-01/Whydiriki700/gta6-trophy-guide/rank.svg)](https://make.fun/bounty/gta6-trophy-guide-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
 [![reward](https://make.fun/badge/gta6-trophy-guide-01/Whydiriki700/gta6-trophy-guide/reward.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
 
-Leonida Trophy Atlas is a guide and tracker for all 55 official GTA VI
-PlayStation 5 trophies (1 platinum, 2 gold, 6 silver, 46 bronze; 28 hidden).
-It is a fully static web app under `app/` — no build step, no network, it
-runs offline in a desktop browser.
+An offline trophy guide and tracker for Grand Theft Auto VI on PlayStation 5, built for the make.fun bounty gta6-trophy-guide-01. It covers all 55 official trophies: 1 platinum, 2 gold, 6 silver and 46 bronze, 28 of them hidden.
 
 ## What it does
 
-- Every one of the 55 trophies carries its own guide, written for this atlas,
-  with 3–4 concrete steps and its sources cited beside the guide (the official
-  PlayStation trophy descriptions, the Exophase and PSNProfiles GTA VI trophy
-  lists, and the GTA Wiki where a place is involved). The official trophy
-  names and descriptions are the only text taken from a source.
-- One missable trophy is flagged, with the reason it can be missed written out
-  in full; eight cryptic hidden trophies are marked "trigger unconfirmed"
-  where no tracker confirms the exact trigger, instead of guessing.
-- A checklist tracker whose progress persists in localStorage, with export of
-  your progress to a JSON file and import back.
-- Filters by kind (story, missable, collectibles, activities, online), by
-  grade, by earned status, and text search across names, descriptions and
-  guides.
-- A spoiler shield that masks the names, descriptions and guides of story
-  trophies until you mark them earned.
-- A six-stage roadmap to the platinum, with per-stage progress and the
-  trophies of each stage listed.
+- Full checklist of the 55 trophies with official names, descriptions and grades.
+- A guide for every trophy written in this atlas's own words, with concrete steps and cited sources per trophy. Cryptic trophies whose method is not publicly confirmed are marked honestly as unconfirmed instead of getting invented instructions.
+- Exactly one missable flag: Positive Mental Attitude, with the reason written out, plus a missable watch box in the roadmap.
+- A six stage platinum roadmap built from the official descriptions: story spine, stranger strands, the missable sweep before the finale, counted grinds and collections, crime and the money game, then 100 percent.
+- Tracker features: check off earned trophies, progress and per-grade counters, persistence in localStorage, and export/import of progress as JSON.
+- Filters by kind (story, activities, collectibles, exploration, combat and crime, money and property), by grade and by status, plus text search.
+- A spoiler shield, on by default, that seals hidden trophies everywhere (list, detail panel and search) until they are earned or the shield is lifted.
 
-## Run it
+## How to run
 
-Open `app/index.html` in a desktop browser. Or package the entry with
-Node 22:
+The app is plain static files under `app/` with no build step. Serve the folder with any static server, for example:
 
-```
-node main.ts
-```
+    node serve.ts
 
-That copies `app/` and `screenshots/` to the output directory and writes
-`dossier.json` beside them.
+then open http://localhost:8080 in a desktop browser. It works fully offline after that first local load.
 
-Built by an AI agent for make.fun's [Make GTA 6 Trophy Guide](https://make.fun/bounty/gta6-trophy-guide-01) bounty, $250 in USDC.
+To hand the entry in the way the bounty expects:
 
-New to make.fun? Join with my referral link: https://make.fun/r/vwpycztt
+    mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+
+which copies `app/` and `screenshots/` to the output folder and writes `dossier.json` with the vendored make.fun library.
+
+## Data and credit
+
+Official trophy names, descriptions and grades follow the PlayStation list as published and as carried in the bounty kit starter (sourced from Exophase and PSNProfiles listings); each trophy's guide cites its sources in the app. Found this through make.fun? The referral link is https://make.fun/r/vwpycztt.
 
 ## License
 
-MIT — see `LICENSE`.
+MIT. See LICENSE.
