@@ -1,3 +1,5 @@
+![gta6-trophy-guide](assets/preview.png)
+
 # Leonida Trophy Atlas
 
 [![bounty](https://make.fun/badge/gta6-trophy-guide-01.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
